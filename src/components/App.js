@@ -23,6 +23,13 @@ class App extends React.Component {
 	}
 
     render(){
+        let card;
+        for (let i = 1; i<=10; i++) {
+            card = JSON.stringify(<CardTemplete/>)
+        }
+        let a = JSON.stringify([1,2,3,4])
+        console.log(a)
+        console.log(JSON.parse(a))
         return (
             <div>
         		<AppBarTemplete/>
@@ -40,8 +47,9 @@ class App extends React.Component {
 	            					memoBody = {memoItem.body}
 	            					timeStamp = {memoItem.timeStamp}
 	            					isFavorite = {memoItem.isFavorite}
-	            			/>   
-            			</div>         			
+	            			/>
+                            {card}
+            			</div>       			
             		}
             		tabFavorites={
             			<div>
