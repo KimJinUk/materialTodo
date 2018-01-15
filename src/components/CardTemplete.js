@@ -12,20 +12,10 @@ export default class CardExampleControlled extends React.Component {
     };
 
     this.handleExpandChange = this.handleExpandChange.bind(this)
-    this.handleExpand = this.handleExpand.bind(this)
-    this.handleReduce = this.handleReduce.bind(this)
   }
 
   handleExpandChange(expanded) {
     this.setState({expanded: expanded});
-  };
-
-  handleExpand() {
-    this.setState({expanded: true});
-  };
-
-  handleReduce() {
-    this.setState({expanded: false});
   };
 
   render() {
@@ -37,11 +27,13 @@ export default class CardExampleControlled extends React.Component {
               subtitle={this.props.timeStamp.slice(0,-20)}            
               showExpandableButton={true}
             >
-                
-                <FlatButton label="Expand" onClick={this.handleExpand} />
-                <FlatButton label="Reduce" onClick={this.handleReduce} />             
+              {this.props.isDeleted?
+                <FlatButton label="Restore" onClick={this.props.deleteFunc} />:<FlatButton label="Delete" onClick={this.props.deleteFunc} />
+              }
             </CardHeader>
-            <CardTitle title={this.props.memoTitle} subtitle={this.props.timeStamp.slice(0,-20)} expandable={true} />
+            <CardTitle title={this.props.memoTitle} subtitle={this.props.timeStamp.slice(0,-20)} expandable={true}>
+              <FlatButton label="Delete" onClick={this.props.deleteFunc} />
+            </CardTitle>
             <CardText expandable={true}>
               {this.props.memoBody}
             </CardText>

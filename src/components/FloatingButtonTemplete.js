@@ -13,14 +13,20 @@ const style = {
 /**
  * Default size and `mini` FABs, in primary (default), `secondary` and `disabled` colors.
  */
-const FloatingActionButtonExampleSimple = () => (
-  <MuiThemeProvider>
-    <div>
-      <FloatingActionButton style={style}>
-        <ContentAdd />
-      </FloatingActionButton>
-    </div>
-  </MuiThemeProvider>
-);
+export default class FloatingActionButtonExampleSimple extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
-export default FloatingActionButtonExampleSimple;
+  render() {
+    return (
+      <MuiThemeProvider>
+        <div>
+          <FloatingActionButton style={style}>
+            <ContentAdd onClick={this.props.add}/>
+          </FloatingActionButton>
+        </div>
+      </MuiThemeProvider>
+    )
+  }
+}
