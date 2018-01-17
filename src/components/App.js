@@ -77,11 +77,84 @@ class App extends React.Component {
 		console.log(this.state.memoItem);
 	}
 
-    render(){
-        //let a = JSON.stringify("<CardTemplete/>")
-        console.log(this.state.memoItem)
-       // console.log(JSON.parse(a))
 
+    render(){
+    	let allTab = this.state.memoItem.map((memo, i) => {
+						if(!memo.isDeleted)
+						return(
+							<CardTemplete 
+            					memoTitle = {memo.title}
+            					memoBody = {memo.body}
+            					timeStamp = {memo.timeStamp}
+            					isFavorite = {memo.isFavorite}
+            					isDeleted = {memo.isDeleted}
+            					deleteFunc = {()=>{
+            							this.setState({
+									 		memoItem: update(
+									 			this.state.memoItem,
+									 			{
+													[i]: {
+														isDeleted: {$set:!this.state.memoItem[i].isDeleted}
+													}
+									 			}	
+								 			)
+									 	});	
+            					}}
+            					key = {i}
+    						/>
+						);
+					})
+    	let favoriteTab = this.state.memoItem.map((memo, i) => {
+    						if(memo.isFavorite&&!memo.isDeleted)
+							return(
+								<CardTemplete 
+	            					memoTitle = {memo.title}
+	            					memoBody = {memo.body}
+	            					timeStamp = {memo.timeStamp}
+	            					isFavorite = {memo.isFavorite}
+	            					isDeleted = {memo.isDeleted}
+	            					deleteFunc = {()=>{
+	            							this.setState({
+										 		memoItem: update(
+										 			this.state.memoItem,
+										 			{
+														[i]: {
+															isDeleted: {$set:!this.state.memoItem[i].isDeleted}
+														}
+										 			}	
+									 			)
+										 	});	
+	            					}}
+	            					key = {i}
+        						/>
+							);
+						})
+
+    	let deletedTab = this.state.memoItem.map((memo, i) => {
+    						if(memo.isDeleted)
+							return(
+								<CardTemplete 
+	            					memoTitle = {memo.title}
+	            					memoBody = {memo.body}
+	            					timeStamp = {memo.timeStamp}
+	            					isFavorite = {memo.isFavorite}
+	            					isDeleted = {memo.isDeleted}
+	            					deleteFunc = {()=>{
+	            							this.setState({
+										 		memoItem: update(
+										 			this.state.memoItem,
+										 			{
+														[i]: {
+															isDeleted: {$set:!this.state.memoItem[i].isDeleted}
+														}
+										 			}	
+									 			)
+										 	});	
+	            					}}
+	            					key = {i}
+        						/>
+							);
+						})
 		const actions = [
 			<FlatButton
 				label="Cancel"
@@ -102,95 +175,17 @@ class App extends React.Component {
         		<TabsTemplete 
         			tabAll={
         				<div>
-        					{
-        						this.state.memoItem.map((memo, i) => {
-        							if(!memo.isDeleted)
-        							return(
-        								<CardTemplete 
-			            					memoTitle = {memo.title}
-			            					memoBody = {memo.body}
-			            					timeStamp = {memo.timeStamp}
-			            					isFavorite = {memo.isFavorite}
-			            					isDeleted = {memo.isDeleted}
-			            					deleteFunc = {()=>{
-			            							this.setState({
-												 		memoItem: update(
-												 			this.state.memoItem,
-												 			{
-																[i]: {
-																	isDeleted: {$set:!this.state.memoItem[i].isDeleted}
-																}
-												 			}	
-											 			)
-												 	});	
-			            					}}
-			            					key = {i}
-	            						/>
-    								);
-        						})
-        					}
+        					{allTab}
             			</div>       			
             		}
             		tabFavorites={
             			<div>
-            				{
-            					this.state.memoItem.map((memo, i) => {
-            						if(memo.isFavorite&&!memo.isDeleted)
-        							return(
-        								<CardTemplete 
-			            					memoTitle = {memo.title}
-			            					memoBody = {memo.body}
-			            					timeStamp = {memo.timeStamp}
-			            					isFavorite = {memo.isFavorite}
-			            					isDeleted = {memo.isDeleted}
-			            					deleteFunc = {()=>{
-			            							this.setState({
-												 		memoItem: update(
-												 			this.state.memoItem,
-												 			{
-																[i]: {
-																	isDeleted: {$set:!this.state.memoItem[i].isDeleted}
-																}
-												 			}	
-											 			)
-												 	});	
-			            					}}
-			            					key = {i}
-	            						/>
-    								);
-        						})
-            				}
+            				{favoriteTab}
             			</div>
             		}
             		tabDeleted={
             			<div>
-            				{
-            					this.state.memoItem.map((memo, i) => {
-            						if(memo.isDeleted)
-        							return(
-        								<CardTemplete 
-			            					memoTitle = {memo.title}
-			            					memoBody = {memo.body}
-			            					timeStamp = {memo.timeStamp}
-			            					isFavorite = {memo.isFavorite}
-			            					isDeleted = {memo.isDeleted}
-			            					deleteFunc = {()=>{
-			            							this.setState({
-												 		memoItem: update(
-												 			this.state.memoItem,
-												 			{
-																[i]: {
-																	isDeleted: {$set:!this.state.memoItem[i].isDeleted}
-																}
-												 			}	
-											 			)
-												 	});	
-			            					}}
-			            					key = {i}
-	            						/>
-    								);
-        						})
-            				}
+            				{deletedTab}
             			</div>
             		}
         		/>
